@@ -5,7 +5,7 @@ package main
   USAGE:
 
   triforce init [[--vm-path PATH_TO_IMAGE] [--host-name VM_HOSTNAME]]
-  triforce build
+  triforce build [--docker-host IP_OR_HOSTNAME]
   triforce ssh
 
 */
