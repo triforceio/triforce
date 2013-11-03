@@ -1,4 +1,4 @@
-package subcommand
+package main
 
 import (
   "os"
@@ -10,6 +10,7 @@ import (
 
 type Build struct {
   client *docker.Docker
+  config Config
 }
 
 func (cmd *Build) Name() string {
@@ -17,9 +18,10 @@ func (cmd *Build) Name() string {
 }
 
 func (cmd *Build) DefineFlags(fs *flag.FlagSet) {
+  fmt.Println("got config: ", cmd.config)
   cmd.client = new(docker.Docker)
-  cmd.client.Addr = fs.String("docker-api-host", "", "IP or Hostname of Docker API")
-  cmd.client.Port = fs.String("docker-api-port", "4243", "Port of Docker API")
+  cmd.client.Addr = fs.String("docker-api-host", cmd.config.DockerApi.Host, "IP or Hostname of Docker API")
+  cmd.client.Port = fs.String("docker-api-port", cmd.config.DockerApi.Port, "Port of Docker API")
 }
 
 func (cmd *Build) Run() {

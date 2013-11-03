@@ -8,15 +8,32 @@ package main
   triforce build [--docker-host IP_OR_HOSTNAME]
   triforce ssh
 
+
+  configuration:
+
+  ~/.triforce
+  or ./.triforce
+  or cli params
+
+  [docker]
+  host = 192.168.172.13
+  port = 5000 # default is 4243
+
 */
 
 
 import (
   "fmt"
-  "github.com/triforce.io/triforce/subcommand"
 )
 
 func main() {
-  fmt.Println("main")
-  subcommand.Parse(new(subcommand.Build))
+  config,err := ReadConfig()
+
+  if err != nil {
+    fmt.Println("Error reading config: ", err)
+  }
+
+  var cli TriforceCli
+
+  cli.Start(config)
 }
