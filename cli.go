@@ -8,7 +8,7 @@ type TriforceCli struct {
 }
 
 func (cli TriforceCli) Start(config Config) {
-  build := new(Build)
-  build.config = config
-  subcommand.Parse(build)
+  init := new(Init)
+  init.config = config
+  subcommand.Parse(init)
 }
