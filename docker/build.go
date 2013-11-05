@@ -7,6 +7,7 @@ import (
   "fmt"
   "net"
   "bytes"
+  "net/url"
   "net/http"
   "net/http/httputil"
   "archive/tar"
@@ -36,7 +37,7 @@ func buildPackage(content []byte) (archive, error) {
   return buf, nil
 }
 
-func (client *Docker) Build(dockerfile []byte) {
+func (client *Docker) Build(dockerfile []byte, name string) {
   packaged,err := buildPackage(dockerfile)
 
   if err != nil {
@@ -44,7 +45,10 @@ func (client *Docker) Build(dockerfile []byte) {
     return
   }
 
-  req,err := http.NewRequest("POST", "/build", packaged)
+  containerValues := url.Values{}
+  containerValues.Set("t", name)
+
+  req,err := http.NewRequest("POST", "/build?" + containerValues.Encode(), packaged)
 
   req.Host = *client.Addr
   req.Header.Set("Content-Type", "application/tar")
