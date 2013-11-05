@@ -10,5 +10,9 @@ type TriforceCli struct {
 func (cli TriforceCli) Start(config Config) {
   init := new(Init)
   init.config = config
-  subcommand.Parse(init)
+
+  start := new(Start)
+  start.config = config
+
+  subcommand.Parse(init, start)
 }

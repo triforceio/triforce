@@ -42,6 +42,8 @@ func (cmd *Init) Run() {
     panic(err)
   }
 
-  cmd.client.Build(dockerfile)
+  cmd.client.Build(dockerfile, *cmd.name)
+
+  cmd.client.Start(*cmd.name)
 }
 
