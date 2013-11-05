@@ -26,7 +26,7 @@ func (client *Docker) Create(name string) {
 
   req,err := http.NewRequest("POST", "/containers/create?" + containerValues.Encode(), bytes.NewReader(body))
 
-  addr := fmt.Sprintf("%s:%s", *client.Addr, *client.Port)
+  addr := fmt.Sprintf("%s:%s", client.Addr, client.Port)
   conn,err := net.Dial("tcp", addr)
 
   if err != nil {

@@ -50,10 +50,10 @@ func (client *Docker) Build(dockerfile []byte, name string) {
 
   req,err := http.NewRequest("POST", "/build?" + containerValues.Encode(), packaged)
 
-  req.Host = *client.Addr
+  req.Host = client.Addr
   req.Header.Set("Content-Type", "application/tar")
 
-  addr := fmt.Sprintf("%s:%s", *client.Addr, *client.Port)
+  addr := fmt.Sprintf("%s:%s", client.Addr, client.Port)
   conn,err := net.Dial("tcp", addr)
 
   if err != nil {

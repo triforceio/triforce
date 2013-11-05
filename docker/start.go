@@ -13,7 +13,7 @@ func host(addr string, port string) string {
 }
 
 func (client *Docker) startContainer(cid string, name string) {
-  url := fmt.Sprintf("%s/containers/%s/start", host(*client.Addr, *client.Port), cid)
+  url := fmt.Sprintf("%s/containers/%s/start", host(client.Addr, client.Port), cid)
   fmt.Printf("POST %s\n", url)
   data := bytes.NewReader([]byte("{}"))
   resp,err := http.Post(url, "application/json", data)
