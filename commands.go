@@ -36,9 +36,6 @@ func init() {
         Ui:     ui,
       }, nil
     },
-    "build": func() (cli.Command, error) {
-      return nil, nil
-    },
     "stop": func() (cli.Command, error) {
       return &command.Stop{
         Client: client,
