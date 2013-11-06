@@ -3,6 +3,7 @@ package command
 import (
   "fmt"
   "github.com/mitchellh/cli"
+  "github.com/triforce.io/triforce/util"
   "github.com/triforce.io/triforce/docker"
 )
 
@@ -21,13 +22,7 @@ func (cmd *Stop) Synopsis() string {
 
 func (cmd *Stop) Run(args []string) int {
 
-  var name string
-
-  if len(args) < 1 {
-    name = defaultName()
-  } else {
-    name = args[0]
-  }
+  name := util.NameFromArgs(args)
 
   err := cmd.Client.Stop(name)
 

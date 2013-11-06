@@ -2,6 +2,7 @@ package command
 
 import (
   "github.com/mitchellh/cli"
+  "github.com/triforce.io/triforce/util"
   "github.com/triforce.io/triforce/docker"
 )
 
@@ -20,13 +21,7 @@ func (cmd *Start) Synopsis() string {
 
 func (cmd *Start) Run(args []string) int {
 
-  var name string
-
-  if len(args) < 1 {
-    name = defaultName()
-  } else {
-    name = args[0]
-  }
+  name := util.NameFromArgs(args)
 
   cmd.Client.Start(name)
 

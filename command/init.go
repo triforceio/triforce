@@ -3,21 +3,16 @@ package command
 import (
   "os"
   "fmt"
-  "path"
   "strings"
   "io/ioutil"
   "github.com/mitchellh/cli"
+  "github.com/triforce.io/triforce/util"
   "github.com/triforce.io/triforce/docker"
 )
 
 type Init struct {
   Ui cli.Ui
   Client *docker.Docker
-}
-
-func defaultName() string {
-  wd,_ := os.Getwd()
-  return path.Base(wd)
 }
 
 func (cmd *Init) Help() string {
@@ -38,13 +33,7 @@ func (cmd *Init) Run(args []string) int {
     return 1
   }
 
-  var name string
-
-  if len(args) < 1 {
-    name = defaultName()
-  } else {
-    name = args[0]
-  }
+  name := util.NameFromArgs(args)
 
   cmd.Ui.Output(fmt.Sprintf("Creating project named: %s", name))
 
